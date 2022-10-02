@@ -21,45 +21,32 @@ class FeedbackController extends AbstractController
         ]);
     }
 
-    // #[Route('/feedback', methods: 'POST')]
-    #[Route('/feedback/add', methods: 'GET')]
+    #[Route('/feedback', methods: 'POST')]
     public function store(
         Request $request,
         ValidatorInterface $validator,
         ManagerRegistry $doctrine
     ): JsonResponse {
         $feedback = new Feedback();
-
-        // $feedback->setName(
-            // htmlentities($request->request->get('name'))
-        // );
-        // $feedback->setPhone((int) $request->request->get('phone'));
-        $feedback->setName(
-            htmlentities($request->query->get('name'))
-        );
-        $feedback->setPhone((int) $request->query->get('phone'));
-
+        
+        $feedback->setName(htmlentities($request->request->get('name')));
+        $feedback->setPhone((int) $request->request->get('phone'));
         $feedback->setIp($request->server->get('REMOTE_ADDR'));
         $feedback->setCreatedAt(new \DateTimeImmutable());
 
         $errors = $validator->validate($feedback);
-
-        if (count($errors) > 0) {
-            return new JsonResponse([
-                'errors' => (string) $errors
-            ]);
+        if ($errors->count() > 0) {
+            $messages = [];
+            foreach ($errors->getIterator() as $error) {
+                $messages[] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $messages]);
         }
 
         $manager = $doctrine->getManager();
         $manager->persist($feedback);
         $manager->flush();
 
-        return new JsonResponse([
-            'id' => $feedback->getId(),
-            'name' => $feedback->getName(),
-            'phone' => $feedback->getPhone(),
-            'created_at' => $feedback->getCreatedAt()->format('Y/m/d h:i:s')
-        ]);
-
+        return new JsonResponse($feedback->getNamePhoneAndCreatedAt());
     }
 }

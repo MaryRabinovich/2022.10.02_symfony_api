@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/addFeedback.css">
+</head>
+<body>
+    <div id="add-feedback" class="add-feedback">
+        <div id="errors" class="add-feedback__errors"></div>
+        <input type="text" id="name" placeholder="Имя" class="add-feedback__input">
+        <input type="number" id="phone" placeholder="Телефон" class="add-feedback__input">
+        <button type="submit" onclick="addFeedback.store()"
+            class="add-feedback__button">
+            Go!
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const API_URL = 'http://localhost:8000/feedback'
+    </script>
+    <script src="/js/addFeedback.js"></script>
+</body>
+</html>

@@ -34,3 +34,13 @@
 Из той же папки /api
 
 > symfony serve
+
+## Запуск сервера фронтенда
+
+> cd ..
+
+> cd frontend
+
+> php -S localhost:8080
+
+Фронтенд виден в браузере как http://localhost:8080

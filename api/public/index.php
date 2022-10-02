@@ -2,6 +2,8 @@
 
 use App\Kernel;
 
+require_once __DIR__ . '/../config/cors.php';
+
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {

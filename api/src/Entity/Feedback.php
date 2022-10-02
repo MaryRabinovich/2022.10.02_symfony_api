@@ -89,4 +89,13 @@ class Feedback
 
         return $this;
     }
+
+    public function getNamePhoneAndCreatedAt(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'phone' => $this->getPhone(),
+            'created_at' => $this->getCreatedAt()->format('Y/m/d h:i:s')
+        ];
+    }
 }
