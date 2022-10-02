@@ -16,3 +16,21 @@
 
 реализовать api метод получения всех feedback 
 в которых будет только name, phone и время создания
+
+# Запуск проекта
+
+## База данных
+
+> cd api
+
+> php bin/console doctrine:database:create
+
+> php bin/console doctrine:migrations:migrate
+
+Создаётся база данных sqlite с таблицей Feedback
+
+## Запуск сервера API
+
+Из той же папки /api
+
+> symfony serve
