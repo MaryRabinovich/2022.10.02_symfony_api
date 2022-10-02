@@ -22,6 +22,9 @@ const addFeedback = {
             return
         }
         this.errorsView.innerHTML = ''
+        this.nameView.value = ''
+        this.nameView.focus()
+        this.phoneView.value = ''
         renderFeedback.render(data)
     }
 }
