@@ -22,6 +22,6 @@ const addFeedback = {
             return
         }
         this.errorsView.innerHTML = ''
-        console.log(data)
+        renderFeedback.render(data)
     }
 }

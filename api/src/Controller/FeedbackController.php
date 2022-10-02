@@ -13,12 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FeedbackController extends AbstractController
 {
     #[Route('/feedback', methods: 'GET')]
-    public function index(): JsonResponse
+    public function index(ManagerRegistry $doctrine): JsonResponse
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/FeedbackController.php',
-        ]);
+        $repository = $doctrine->getRepository(Feedback::class);
+        $feedbackAll = $repository->findAll();
+        $result = [];
+        foreach ($feedbackAll as $feedback) {
+            $result[] = $feedback->getNamePhoneAndCreatedAt();
+        }
+        return new JsonResponse($result);
     }
 
     #[Route('/feedback', methods: 'POST')]
@@ -28,7 +31,7 @@ class FeedbackController extends AbstractController
         ManagerRegistry $doctrine
     ): JsonResponse {
         $feedback = new Feedback();
-        
+
         $feedback->setName(htmlentities($request->request->get('name')));
         $feedback->setPhone((int) $request->request->get('phone'));
         $feedback->setIp($request->server->get('REMOTE_ADDR'));
