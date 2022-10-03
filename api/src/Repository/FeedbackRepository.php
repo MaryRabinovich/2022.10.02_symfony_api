@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Feedback;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,12 @@ class FeedbackRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getIdDescOrderingQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.id', 'DESC');
     }
 
 //    /**

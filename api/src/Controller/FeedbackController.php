@@ -9,19 +9,35 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 
 class FeedbackController extends AbstractController
 {
     #[Route('/feedback', methods: 'GET')]
-    public function index(ManagerRegistry $doctrine): JsonResponse
-    {
+    public function index(
+        Request $request,
+        ManagerRegistry $doctrine,
+        PaginatorInterface $paginator 
+    ): JsonResponse {
         $repository = $doctrine->getRepository(Feedback::class);
-        $feedbackAll = $repository->findBy([], ['id' => 'DESC']);
+
+        $pagination = $paginator->paginate(
+            $repository->getIdDescOrderingQueryBuilder(),
+            $request->query->getInt('page', 1),
+            $request->query->getInt('per_page', 10)
+        );
+
         $result = [];
-        foreach ($feedbackAll as $feedback) {
+        foreach ($pagination->getItems() as $feedback) {
             $result[] = $feedback->getNamePhoneAndCreatedAt();
         }
-        return new JsonResponse($result);
+
+        return new JsonResponse([
+            'content' => $result,
+            'total' => $pagination->getTotalItemCount(),
+            'per_page' => $pagination->getItemNumberPerPage(),
+            'current_page' => $pagination->getCurrentPageNumber()
+        ]);
     }
 
     #[Route('/feedback', methods: 'POST')]
