@@ -13,3 +13,28 @@
     margin-bottom: 1rem;
     line-height: 1.5;
 }
+
+.feedback-list__menu {
+    padding: 1rem 2rem;
+}
+
+.feedback-list__menu__item {
+    background: blue;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+.feedback-list__menu__item:hover {
+    background: darkblue;
+    cursor: pointer;
+}
+.feedback-list__menu__item-active {
+    background: gray;
+}
+.feedback-list__menu__item-active:hover {
+    pointer-events: none;
+    background: gray;
+    cursor: default;
+}

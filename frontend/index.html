@@ -20,6 +20,11 @@
         </button>
     </div>
 
+    <p class="feedback-list__menu">
+        <strong>Страницы: </strong>
+        <span id="pages"></span>
+    </p>
+
     <ul id="feedback-list" class="feedback-list"></ul>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -30,7 +35,7 @@
     <script src="/js/feedbackList.js"></script>
     <script src="/js/renderFeedback.js"></script>
     <script>
-        feedbackList.show()
+        feedbackList.show(1)
     </script>
 </body>
 </html>
