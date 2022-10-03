@@ -16,7 +16,7 @@ class FeedbackController extends AbstractController
     public function index(ManagerRegistry $doctrine): JsonResponse
     {
         $repository = $doctrine->getRepository(Feedback::class);
-        $feedbackAll = $repository->findAll();
+        $feedbackAll = $repository->findBy([], ['id' => 'DESC']);
         $result = [];
         foreach ($feedbackAll as $feedback) {
             $result[] = $feedback->getNamePhoneAndCreatedAt();

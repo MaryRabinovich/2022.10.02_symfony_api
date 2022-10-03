@@ -2,11 +2,17 @@ const renderFeedback = {
 
     view: document.getElementById('feedback-list'),
 
-    render(feedback) {
+    render(feedback, asFirst = false) {
         const element = document.createElement('li')
         element.className = 'feedback-list__element'
         element.innerHTML = this.format(feedback)
-        this.view.appendChild(element)
+        if (asFirst) {
+            this.view.prepend(element)
+        } else {
+            this.view.append(element)
+        }
+
+        console.log(feedback)
     },
 
     format(feedback) {

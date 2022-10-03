@@ -1,6 +1,6 @@
 .feedback-list {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     max-width: 500px;
     padding: 0 2rem;
     list-style: none;

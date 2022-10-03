@@ -25,6 +25,6 @@ const addFeedback = {
         this.nameView.value = ''
         this.nameView.focus()
         this.phoneView.value = ''
-        renderFeedback.render(data)
+        renderFeedback.render(data, true)
     }
 }
